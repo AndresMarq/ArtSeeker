@@ -8,14 +8,42 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var records = [Record]()
+    
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        List(records, id: \.id) { record in
+            Text(record.date)
+        }
+        .task {
+            await loadData()
+        }
+    }
+    
+    // Move out of the view
+    func loadData() async {
+        guard let url = URL(string: completeURL) else {
+            print("Invalid URL")
+            return
+        }
+        
+        do {
+            // Take the data from the URL and toss the metadata away with the underscore
+            let (data, _) = try await URLSession.shared.data(from: url)
+
+            if let decodedResponse = try? JSONDecoder().decode(Result.self, from: data) {
+                records = decodedResponse.records
+            }
+            
+        } catch {
+            print("Invalid data")
+        }
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
+/*
+ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
     }
 }
+*/
