@@ -26,25 +26,19 @@ struct Info: Codable {
     var pages: Int
     var page: Int
     var next: String
-    var prev: String
+    //var prev: String
 }
 
 struct Record: Codable {
     var id: Int
+    var images: [Image]
+}
+
+struct Image: Codable {
+    //var date: String?
+    //var copyright: String?
     var imageid: Int
-    var fileid: Int
-    var idsid: Int
-    var caption: String
-    var alttext: String
-    var description: String
-    var copyright: String
-    var iiifbaseuri: String
-    var baseimageurl: String
-    var renditionnumber: Int
-    var date: String
-    var height: Int
-    var width: Int
-    var accesslevel: Int
-    var format: String
-    var technique: String
+    //"idsid":45605888,"format":"image/jpeg","description":null,"technique":null,"renditionnumber":"STR009286","displayorder":1,
+    //var baseimageurl: String
+    //,"alttext":null,"width":822,"publiccaption":null,"iiifbaseuri":"https://ids.lib.harvard.edu/ids/iiif/45605888","height":1024}
 }

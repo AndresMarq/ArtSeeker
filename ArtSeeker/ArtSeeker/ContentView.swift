@@ -12,7 +12,11 @@ struct ContentView: View {
     
     var body: some View {
         List(records, id: \.id) { record in
-            Text(record.date)
+            Text("\(record.id)")
+            //List(record.images, id: \.imageid) { image in
+            //    AsyncImage(url: URL(string: image.baseimageurl))
+            //}
+            
         }
         .task {
             await loadData()
@@ -32,6 +36,7 @@ struct ContentView: View {
 
             if let decodedResponse = try? JSONDecoder().decode(Result.self, from: data) {
                 records = decodedResponse.records
+                //print(records[0].images[0].imageid)
             }
             
         } catch {
