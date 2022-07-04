@@ -10,13 +10,15 @@ import Foundation
 struct Network {
     
     enum NetworkError: Error {
-        case failed
+        case failedToReadURL
         case failedToDecode
         case invalidStatusCode
     }
     
     func fetchResults() async throws -> Result {
-        let url = URL(string: completeURL)!
+        guard let url = URL(string: completeURL) else {
+            throw NetworkError.failedToReadURL
+        }
         
         // Take the data from the URL and get the metadata in response
         let (data, response) = try await URLSession.shared.data(from: url)
@@ -26,8 +28,12 @@ struct Network {
             throw NetworkError.invalidStatusCode
         }
 
-        let decodedResponse = try JSONDecoder().decode(Result.self, from: data)
+        if let decodedResponse = try? JSONDecoder().decode(Result.self, from: data) {
+            return decodedResponse
+        } else {
+            throw NetworkError.failedToDecode
+        }
             
-        return decodedResponse
+        
     }
 }

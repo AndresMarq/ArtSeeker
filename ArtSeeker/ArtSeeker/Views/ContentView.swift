@@ -14,18 +14,24 @@ struct ContentView: View {
     
     var body: some View {
         NavigationView {
-            
             switch viewModel.state {
             case .success(let data):
-                List {
-                    ForEach(data.records, id: \.id) { record in
-                        Text(record.title)
-                    }
+                TabView {
+                    HomeView(data: data)
+                        .tabItem {
+                            Label("Home", systemImage: "house")
+                        }
+                    ExploreView()
+                        .tabItem {
+                            Label("Explore", systemImage: "magnifyingglass")
+                        }
+                    SettingsView()
+                        .tabItem {
+                            Label("Settings", systemImage: "gear")
+                        }
                 }
-                .navigationTitle("Art Seeker")
-                
             case .loading:
-                Text("In progress")
+                LoadingView()
                 
             default:
                 Text("")
