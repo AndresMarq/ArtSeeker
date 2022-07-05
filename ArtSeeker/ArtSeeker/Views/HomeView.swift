@@ -8,14 +8,28 @@
 import SwiftUI
 
 struct HomeView: View {
-    let data: Result
+    let data: [Result.Record]
     
     var body: some View {
         GeometryReader { geometry in
-            List(data.records, id: \.id) { record in
-                VStack {
-                    ImageView(imageURL: record.primaryimageurl)
-                    Text(record.title)
+            List(data, id: \.id) { record in
+                HStack {
+                    ImageView(
+                        imageURL: record.images?.first?.baseimageurl,
+                        imageAspectRatioInt: (record.images?.first?.width ?? 1) / (record.images?.first?.height ?? 1)
+                    )
+                        .frame(width: geometry.size.width * 0.5, height: geometry.size.height * 0.3)
+                    Spacer()
+                    VStack {
+                        Text(record.title)
+                            .font(.caption)
+                            .bold()
+                            .padding(.bottom, 1.0)
+                        Text("Dated: \(record.dated ?? "Not available")")
+                            .font(.caption2)
+                    }
+                    .frame(width: geometry.size.width * 0.3, height: geometry.size.height * 0.3)
+                    .multilineTextAlignment(.center)
                 }
             }
         }
@@ -26,6 +40,6 @@ struct HomeView: View {
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView(data: Result(info: Info(totalrecordsperquery: 0, totalrecords: 0, pages: 0, page: 0, next: ""), records: []))
+        HomeView(data: [])
     }
 }

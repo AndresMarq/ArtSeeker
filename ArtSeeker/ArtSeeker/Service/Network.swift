@@ -9,6 +9,11 @@ import Foundation
 
 struct Network {
     
+    static var harvardmuseumURL = "https://api.harvardartmuseums.org/object?"
+    static var recordSizeURL = "size=50&"
+    static let apiKey = "apikey=6def9cd9-a933-458d-b7d0-f29c0e60a0d1"
+    static var completeURL = harvardmuseumURL + recordSizeURL + apiKey
+    
     enum NetworkError: Error {
         case failedToReadURL
         case failedToDecode
@@ -16,7 +21,7 @@ struct Network {
     }
     
     func fetchResults() async throws -> Result {
-        guard let url = URL(string: completeURL) else {
+        guard let url = URL(string: Network.completeURL) else {
             throw NetworkError.failedToReadURL
         }
         
@@ -33,7 +38,5 @@ struct Network {
         } else {
             throw NetworkError.failedToDecode
         }
-            
-        
     }
 }

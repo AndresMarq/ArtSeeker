@@ -13,7 +13,7 @@ class ResultViewModel: ObservableObject {
     enum State {
         case na
         case loading
-        case success(data: Result)
+        case success(data: [Result.Record])
         case failed(error: Error)
     }
     
@@ -32,7 +32,9 @@ class ResultViewModel: ObservableObject {
         
         do {
             let results = try await service.fetchResults()
-            self.state = .success(data: results)
+            // Discard records without Images
+            let records = results.records.filter { $0.imagecount > 0 }
+            self.state = .success(data: records)
         } catch {
             self.state = .failed(error: error)
             self.hasError = true

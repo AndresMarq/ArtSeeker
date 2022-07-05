@@ -10,9 +10,7 @@
 		92464FCE287256D100B3FBCC /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92464FCD287256D100B3FBCC /* HomeView.swift */; };
 		92464FD02872584400B3FBCC /* ExploreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92464FCF2872584400B3FBCC /* ExploreView.swift */; };
 		92464FD22872585F00B3FBCC /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92464FD12872585F00B3FBCC /* SettingsView.swift */; };
-		92464FD42872621400B3FBCC /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92464FD32872621400B3FBCC /* LoadingView.swift */; };
 		92464FD6287286E900B3FBCC /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92464FD5287286E900B3FBCC /* ImageView.swift */; };
-		928E4C5F28714ACF00FE2429 /* URLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928E4C5E28714ACF00FE2429 /* URLs.swift */; };
 		928E4C632871592600FE2429 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928E4C622871592600FE2429 /* Network.swift */; };
 		928E4C6728715F1000FE2429 /* ResultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928E4C6628715F1000FE2429 /* ResultViewModel.swift */; };
 		92DAA8D7286BFB40004B13C7 /* ArtSeekerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DAA8D6286BFB40004B13C7 /* ArtSeekerApp.swift */; };
@@ -26,9 +24,7 @@
 		92464FCD287256D100B3FBCC /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		92464FCF2872584400B3FBCC /* ExploreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreView.swift; sourceTree = "<group>"; };
 		92464FD12872585F00B3FBCC /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
-		92464FD32872621400B3FBCC /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		92464FD5287286E900B3FBCC /* ImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageView.swift; sourceTree = "<group>"; };
-		928E4C5E28714ACF00FE2429 /* URLs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLs.swift; sourceTree = "<group>"; };
 		928E4C622871592600FE2429 /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		928E4C6628715F1000FE2429 /* ResultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultViewModel.swift; sourceTree = "<group>"; };
 		92DAA8D3286BFB40004B13C7 /* ArtSeeker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ArtSeeker.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -54,7 +50,6 @@
 			isa = PBXGroup;
 			children = (
 				92E103E2286D4E8400F525D7 /* Result.swift */,
-				928E4C5E28714ACF00FE2429 /* URLs.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -81,7 +76,6 @@
 				92DAA8D8286BFB40004B13C7 /* ContentView.swift */,
 				92464FCD287256D100B3FBCC /* HomeView.swift */,
 				92464FD5287286E900B3FBCC /* ImageView.swift */,
-				92464FD32872621400B3FBCC /* LoadingView.swift */,
 				92464FCF2872584400B3FBCC /* ExploreView.swift */,
 				92464FD12872585F00B3FBCC /* SettingsView.swift */,
 			);
@@ -199,14 +193,12 @@
 				928E4C632871592600FE2429 /* Network.swift in Sources */,
 				92464FCE287256D100B3FBCC /* HomeView.swift in Sources */,
 				928E4C6728715F1000FE2429 /* ResultViewModel.swift in Sources */,
-				92464FD42872621400B3FBCC /* LoadingView.swift in Sources */,
 				92464FD6287286E900B3FBCC /* ImageView.swift in Sources */,
 				92464FD22872585F00B3FBCC /* SettingsView.swift in Sources */,
 				92DAA8D9286BFB40004B13C7 /* ContentView.swift in Sources */,
 				92E103E3286D4E8400F525D7 /* Result.swift in Sources */,
 				92DAA8D7286BFB40004B13C7 /* ArtSeekerApp.swift in Sources */,
 				92464FD02872584400B3FBCC /* ExploreView.swift in Sources */,
-				928E4C5F28714ACF00FE2429 /* URLs.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

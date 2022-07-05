@@ -31,7 +31,7 @@ struct ContentView: View {
                         }
                 }
             case .loading:
-                LoadingView()
+                ProgressView()
                 
             default:
                 Text("")
