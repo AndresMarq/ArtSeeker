@@ -45,4 +45,3 @@ struct ImageView_Previews: PreviewProvider {
         ImageView(imageURL: URL(string: "https://nrs.harvard.edu/urn-3:HUAM:LEG256541")!, imageAspectRatioInt: 1)
     }
 }
-

@@ -16,7 +16,7 @@ struct Result: Codable {
         let totalrecords: Int
         let pages: Int
         let page: Int
-        let next: String
+        let next: String?
         let prev: String?
     }
     
@@ -35,6 +35,8 @@ struct Result: Codable {
             let baseimageurl: URL?
             let width: Int
             let height: Int
+            let copyright: String?
+            let date: String?
         }
     }
 }

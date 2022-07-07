@@ -8,19 +8,19 @@
 import SwiftUI
 
 struct ContentView: View {
-    @StateObject private var viewModel = ResultViewModel(
+    @StateObject var viewModel = ResultViewModel(
         service: Network()
     )
     
     var body: some View {
-        NavigationView {
+        Group {
             switch viewModel.state {
             case .success(let data):
                 TabView {
                     HomeView(data: data)
                         .tabItem {
                             Label("Home", systemImage: "house")
-                        }
+                        } .environmentObject(viewModel)
                     ExploreView()
                         .tabItem {
                             Label("Explore", systemImage: "magnifyingglass")

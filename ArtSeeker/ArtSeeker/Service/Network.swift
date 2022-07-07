@@ -9,19 +9,38 @@ import Foundation
 
 struct Network {
     
-    static var harvardmuseumURL = "https://api.harvardartmuseums.org/object?"
-    static var recordSizeURL = "size=50&"
-    static let apiKey = "apikey=6def9cd9-a933-458d-b7d0-f29c0e60a0d1"
-    static var completeURL = harvardmuseumURL + recordSizeURL + apiKey
+    // MARK: -URLs
+    static let harvardmuseumURL = "https://api.harvardartmuseums.org/object?"
+    static var recordSizeURL = "size=15&"
+    static let apiKey = "&apikey=6def9cd9-a933-458d-b7d0-f29c0e60a0d1"
     
+    // Filter
+    // This parameter should discard records without images
+    static let hasImageURL = "hasimage=1&"
+    // This parameter searches object titles, artists, description, classification, culture, and worktype
+    static var keywordFilterURL = "keyword="
+    
+    // Page number
+    static let pageTemplateURL = "&page="
+    static var pageNumberURL = "1"
+    
+    // MARK: -Errors
     enum NetworkError: Error {
         case failedToReadURL
         case failedToDecode
         case invalidStatusCode
     }
     
+    // MARK: -Fetch Request
     func fetchResults() async throws -> Result {
-        guard let url = URL(string: Network.completeURL) else {
+        
+        // Get the desired result URL page
+        let pageURL = Network.pageTemplateURL + Network.pageNumberURL
+        
+        // URL used for fetch request
+        let completeURL = Network.harvardmuseumURL + Network.recordSizeURL + Network.hasImageURL + Network.keywordFilterURL + pageURL + Network.apiKey
+        
+        guard let url = URL(string: completeURL) else {
             throw NetworkError.failedToReadURL
         }
         
@@ -34,9 +53,15 @@ struct Network {
         }
 
         if let decodedResponse = try? JSONDecoder().decode(Result.self, from: data) {
+            print(completeURL)
             return decodedResponse
         } else {
             throw NetworkError.failedToDecode
         }
+    }
+    
+    // MARK: - Change Result Page Number
+    mutating func changeResultPageNumber(pageNumber: String) {
+        Network.pageNumberURL = pageNumber
     }
 }
