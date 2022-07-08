@@ -41,6 +41,7 @@ struct Network {
         let completeURL = Network.harvardmuseumURL + Network.recordSizeURL + Network.hasImageURL + Network.keywordFilterURL + pageURL + Network.apiKey
         
         guard let url = URL(string: completeURL) else {
+            print(completeURL)
             throw NetworkError.failedToReadURL
         }
         
@@ -63,5 +64,10 @@ struct Network {
     // MARK: - Change Result Page Number
     mutating func changeResultPageNumber(pageNumber: String) {
         Network.pageNumberURL = pageNumber
+    }
+    
+    // MARK: - Filter fetch by keyword
+    mutating func filterByKeyword(keyword: String) {
+        Network.keywordFilterURL = "keyword=" + keyword
     }
 }

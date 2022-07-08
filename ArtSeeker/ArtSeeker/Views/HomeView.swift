@@ -10,6 +10,7 @@ import SwiftUI
 struct HomeView: View {
     let data: [Result.Record]
     @EnvironmentObject var viewModel: ResultViewModel
+    @State private var searchText = ""
     
     var body: some View {
         NavigationView {
@@ -34,25 +35,43 @@ struct HomeView: View {
                         .multilineTextAlignment(.center)
                     }
                 }
+                .searchable(text: $searchText)
             }
             .navigationTitle("Art Seeker")
             .navigationBarTitleDisplayMode(.inline)
-            .navigationBarItems(
-                leading: Button {
-                    Task {
-                        await viewModel.getPageNumber(pageNumberChange: -1)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button("Clear Filter") {
+                        Task {
+                            await viewModel.applySearchFilter(keyword: "")
+                        }
                     }
-                } label: {
-                    Image(systemName: "arrow.backward")
-                },
-                trailing: Button {
-                    Task {
-                        await viewModel.getPageNumber(pageNumberChange: +1)
-                    }
-                } label: {
-                    Image(systemName: "arrow.forward")
                 }
-            )
+                ToolbarItem(placement: .bottomBar) {
+                    Button {
+                        Task {
+                            await viewModel.getPageNumber(pageNumberChange: -1)
+                        }
+                    } label: {
+                        Image(systemName: "arrow.backward")
+                    }
+                }
+                ToolbarItem(placement: .bottomBar) {
+                    Button {
+                        Task {
+                            await viewModel.getPageNumber(pageNumberChange: +1)
+                        }
+                    } label: {
+                        Image(systemName: "arrow.forward")
+                    }
+                }
+            }
+            .onSubmit(
+                of: .search) {
+                    Task {
+                        await viewModel.applySearchFilter(keyword: searchText)
+                    }
+                }
         }
     }
 }

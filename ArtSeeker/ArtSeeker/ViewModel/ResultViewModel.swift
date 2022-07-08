@@ -21,9 +21,12 @@ class ResultViewModel: ObservableObject {
     @Published var hasError: Bool = false
     
     private var service: Network
-    private var resultPageNumber = 2
+    
+    // Vars for page number change and filtering by keyword
+    private var resultPageNumber = 1
     // The number 10 below is just a placeholder
     private var resultTotalNumberOfPages = 10
+    private var filterKeyword = ""
     
     init(service: Network) {
         self.service = service
@@ -37,11 +40,11 @@ class ResultViewModel: ObservableObject {
         do {
             // Apply Page Number & Filter
             // Page Number
-            let resultPageNumberStr = String (resultPageNumber)
+            let resultPageNumberStr = String(resultPageNumber)
             service.changeResultPageNumber(pageNumber: resultPageNumberStr)
             
             // Filter by keyword
-            //Network.keywordFilterURL = "keyword="
+            service.filterByKeyword(keyword: filterKeyword)
             
             let results = try await service.fetchResults()
             // Discard records without Images if there are still any (Also checked in Network -> URL)
@@ -72,5 +75,11 @@ class ResultViewModel: ObservableObject {
                 await getResult()
             }
         }
+    }
+    
+    // Implement keyword search in Model
+    func applySearchFilter(keyword: String) async {
+        filterKeyword = keyword
+        await getResult()
     }
 }
