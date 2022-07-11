@@ -16,62 +16,67 @@ struct HomeView: View {
         NavigationView {
             GeometryReader { geometry in
                 List(data, id: \.id) { record in
-                    HStack {
-                        ImageView(
-                            imageURL: record.images?.first?.baseimageurl,
-                            imageAspectRatioInt: (record.images?.first?.width ?? 1) / (record.images?.first?.height ?? 1)
-                        )
-                            .frame(width: geometry.size.width * 0.5, height: geometry.size.height * 0.3)
-                        Spacer()
-                        VStack {
-                            Text(record.title)
-                                .font(.caption)
-                                .bold()
-                                .padding(.bottom, 1.0)
-                            Text("Dated: \(record.dated ?? "Not available")")
-                                .font(.caption2)
+                    NavigationLink(destination: DetailView(record: record)) {
+                        HStack {
+                            ImageView(
+                                imageURL: record.images?.first?.baseimageurl,
+                                imageAspectRatioInt: (record.images?.first?.width ?? 1) / (record.images?.first?.height ?? 1)
+                            )
+                                .frame(width: geometry.size.width * 0.45, height: geometry.size.height * 0.3)
+                            Spacer()
+                            VStack {
+                                Text(record.title)
+                                    .font(.caption)
+                                    .bold()
+                                    .padding(.bottom, 1.0)
+                                Text("Dated: \(record.dated ?? "Not available")")
+                                    .font(.caption2)
+                            }
+                            .frame(width: geometry.size.width * 0.3, height: geometry.size.height * 0.3)
+                            .multilineTextAlignment(.center)
                         }
-                        .frame(width: geometry.size.width * 0.3, height: geometry.size.height * 0.3)
-                        .multilineTextAlignment(.center)
                     }
                 }
-                .searchable(text: $searchText)
+                .searchable(text: $searchText, prompt: "Filter by a single keyword")
+            }
+            .onSubmit(of: .search) {
+                Task {
+                    await viewModel.applySearchFilter(keyword: searchText)
+                }
             }
             .navigationTitle("Art Seeker")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("Clear Filter") {
-                        Task {
-                            await viewModel.applySearchFilter(keyword: "")
-                        }
-                    }
-                }
                 ToolbarItem(placement: .bottomBar) {
-                    Button {
-                        Task {
-                            await viewModel.getPageNumber(pageNumberChange: -1)
+                    HStack {
+                        Button {
+                            Task {
+                                await viewModel.getPageNumber(pageNumberChange: -1)
+                            }
+                        } label: {
+                            Image(systemName: "arrow.backward")
                         }
-                    } label: {
-                        Image(systemName: "arrow.backward")
-                    }
-                }
-                ToolbarItem(placement: .bottomBar) {
-                    Button {
-                        Task {
-                            await viewModel.getPageNumber(pageNumberChange: +1)
+                        
+                        Spacer()
+                    
+                        Button("Clear Filter") {
+                            Task {
+                                await viewModel.applySearchFilter(keyword: "")
+                            }
                         }
-                    } label: {
-                        Image(systemName: "arrow.forward")
+                        
+                        Spacer()
+                        
+                        Button {
+                            Task {
+                                await viewModel.getPageNumber(pageNumberChange: +1)
+                            }
+                        } label: {
+                            Image(systemName: "arrow.forward")
+                        }
                     }
                 }
             }
-            .onSubmit(
-                of: .search) {
-                    Task {
-                        await viewModel.applySearchFilter(keyword: searchText)
-                    }
-                }
         }
     }
 }

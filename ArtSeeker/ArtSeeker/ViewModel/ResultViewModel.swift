@@ -79,7 +79,8 @@ class ResultViewModel: ObservableObject {
     
     // Implement keyword search in Model
     func applySearchFilter(keyword: String) async {
-        filterKeyword = keyword
+        // Ensure keyword is single word, if not discard all other ones
+        filterKeyword = keyword.components(separatedBy: " ").first ?? ""
         await getResult()
     }
 }
