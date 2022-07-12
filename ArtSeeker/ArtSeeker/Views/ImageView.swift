@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ImageView: View {
     let imageURL: URL?
-    let imageAspectRatioInt: Int
+    let imageAspectRatio: CGFloat
     
     var body: some View {
         AsyncImage(url: imageURL) { phase in
@@ -20,10 +20,10 @@ struct ImageView: View {
                 ZStack {
                     Rectangle()
                         .fill(Color.clear)
-                        .aspectRatio(CGFloat(imageAspectRatioInt), contentMode: .fit)
+                        .aspectRatio(imageAspectRatio, contentMode: .fit)
                     
                     image.resizable()
-                        .scaledToFill()
+                        .scaledToFit()
                         .layoutPriority(-1)
                 }
                 .clipped()
@@ -42,6 +42,6 @@ struct ImageView: View {
 
 struct ImageView_Previews: PreviewProvider {
     static var previews: some View {
-        ImageView(imageURL: URL(string: "https://nrs.harvard.edu/urn-3:HUAM:LEG256541")!, imageAspectRatioInt: 1)
+        ImageView(imageURL: URL(string: "https://nrs.harvard.edu/urn-3:HUAM:LEG256541")!, imageAspectRatio: 1)
     }
 }

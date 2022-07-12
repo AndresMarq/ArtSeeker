@@ -21,7 +21,7 @@ struct DetailView: View {
                 ForEach(record.images ?? [], id: \.imageid) { image in
                     ImageView(
                         imageURL: image.baseimageurl,
-                        imageAspectRatioInt: image.width / image.height
+                        imageAspectRatio: CGFloat(image.width) / CGFloat(image.height)
                     )
                     .padding()
                 }

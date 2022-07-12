@@ -48,7 +48,10 @@ class ResultViewModel: ObservableObject {
             
             let results = try await service.fetchResults()
             // Discard records without Images if there are still any (Also checked in Network -> URL)
-            let records = results.records.filter { $0.imagecount > 0 }
+            let recordsWithImage = results.records.filter { $0.imagecount > 0 }
+            // Further filters required as the API sometimes shows records with empty or nil image arrays as having images
+            let recordsWithValidImage = recordsWithImage.filter { $0.images != nil}
+            let records = recordsWithValidImage.filter { $0.images?.isEmpty == false }
             // Pass filtered data to View
             self.state = .success(data: records)
             // Update total number of pages in result

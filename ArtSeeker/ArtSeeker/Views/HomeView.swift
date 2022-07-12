@@ -8,37 +8,40 @@
 import SwiftUI
 
 struct HomeView: View {
-    let data: [Result.Record]
-    @EnvironmentObject var viewModel: ResultViewModel
+    
+    @StateObject var viewModel = ResultViewModel(
+        service: Network()
+    )
+    
     @State private var searchText = ""
     
     var body: some View {
         NavigationView {
-            GeometryReader { geometry in
-                List(data, id: \.id) { record in
-                    NavigationLink(destination: DetailView(record: record)) {
-                        HStack {
-                            ImageView(
-                                imageURL: record.images?.first?.baseimageurl,
-                                imageAspectRatioInt: (record.images?.first?.width ?? 1) / (record.images?.first?.height ?? 1)
-                            )
-                                .frame(width: geometry.size.width * 0.45, height: geometry.size.height * 0.3)
-                            Spacer()
-                            VStack {
-                                Text(record.title)
-                                    .font(.caption)
-                                    .bold()
-                                    .padding(.bottom, 1.0)
-                                Text("Dated: \(record.dated ?? "Not available")")
-                                    .font(.caption2)
-                            }
-                            .frame(width: geometry.size.width * 0.3, height: geometry.size.height * 0.3)
-                            .multilineTextAlignment(.center)
-                        }
+            Group {
+                switch viewModel.state {
+                case .success(let data):
+                    ListView(data: data)
+                case .loading:
+                    ProgressView()
+                default:
+                    Text("Something went wrong")
+                }
+            }
+            .task {
+                await viewModel.getResult()
+            }
+            .alert("Error", isPresented: $viewModel.hasError, presenting: viewModel.state) { detail in
+                Button("Retry") {
+                    Task {
+                        await viewModel.getResult()
                     }
                 }
-                .searchable(text: $searchText, prompt: "Filter by a single keyword")
+            } message: { detail in
+                if case let .failed(error) = detail {
+                    Text(error.localizedDescription)
+                }
             }
+            .searchable(text: $searchText, prompt: "Filter by a single keyword")
             .onSubmit(of: .search) {
                 Task {
                     await viewModel.applySearchFilter(keyword: searchText)
@@ -83,7 +86,7 @@ struct HomeView: View {
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView(data: ResultExample.records)
+        HomeView()
     }
 }
 
