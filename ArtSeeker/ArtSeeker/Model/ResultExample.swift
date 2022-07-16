@@ -43,6 +43,17 @@ let ResultExample = Result(
                         copyright: "President and Fellows of Harvard College",
                         date: "2005-09-26"
                      )
+            ],
+            people: [
+                Result.Record.Person(
+                    birthplace: "Maracaibo",
+                    name: "Raphael",
+                    personid: 10,
+                    role: "Painter",
+                    displayorder: 1,
+                    culture: "Italian",
+                    displayname: nil
+                )
             ]
         ),
         
@@ -72,5 +83,7 @@ let ResultExample = Result(
                     copyright: "President and Fellows of Harvard College",
                     date: "2005-09-26"
                 )
-            ])
+            ],
+        people: []
+        )
     ])

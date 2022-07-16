@@ -54,7 +54,6 @@ struct Network {
         }
 
         if let decodedResponse = try? JSONDecoder().decode(Result.self, from: data) {
-            print(completeURL)
             return decodedResponse
         } else {
             throw NetworkError.failedToDecode

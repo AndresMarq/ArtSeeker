@@ -21,6 +21,12 @@ struct HomeView: View {
                 switch viewModel.state {
                 case .success(let data):
                     ListView(data: data)
+                        .searchable(text: $searchText, prompt: "Filter by a single keyword")
+                        .onSubmit(of: .search) {
+                            Task {
+                                await viewModel.applySearchFilter(keyword: searchText)
+                            }
+                        }
                 case .loading:
                     ProgressView()
                 default:
@@ -39,12 +45,6 @@ struct HomeView: View {
             } message: { detail in
                 if case let .failed(error) = detail {
                     Text(error.localizedDescription)
-                }
-            }
-            .searchable(text: $searchText, prompt: "Filter by a single keyword")
-            .onSubmit(of: .search) {
-                Task {
-                    await viewModel.applySearchFilter(keyword: searchText)
                 }
             }
             .navigationTitle("Art Seeker")

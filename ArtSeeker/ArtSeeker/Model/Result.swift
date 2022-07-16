@@ -28,6 +28,7 @@ struct Result: Codable {
         let period: String?
         let dated: String?
         let images: [Image]?
+        let people: [Person]?
         
         struct Image: Codable {
             let imageid: Int
@@ -37,6 +38,16 @@ struct Result: Codable {
             let height: Int
             let copyright: String?
             let date: String?
+        }
+        
+        struct Person: Codable {
+            let birthplace: String?
+            let name: String
+            let personid: Int
+            let role: String?
+            let displayorder: Int?
+            let culture: String?
+            let displayname: String?
         }
     }
 }

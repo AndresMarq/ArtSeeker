@@ -26,6 +26,7 @@ struct ListView: View {
                                 .font(.caption)
                                 .bold()
                                 .padding(.bottom, 1.0)
+                            
                             Text("Dated: \(record.dated ?? "Not available")")
                                 .font(.caption2)
                         }

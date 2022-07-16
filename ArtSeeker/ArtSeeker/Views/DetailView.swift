@@ -11,27 +11,35 @@ struct DetailView: View {
     let record: Result.Record
     
     var body: some View {
-        ScrollView {
-            VStack {
-                Text(record.title)
-                    .bold()
-                    .padding()
-                    .multilineTextAlignment(.center)
-                
-                ForEach(record.images ?? [], id: \.imageid) { image in
-                    ImageView(
-                        imageURL: image.baseimageurl,
-                        imageAspectRatio: CGFloat(image.width) / CGFloat(image.height)
-                    )
-                    .padding()
+        GeometryReader { geometry in
+            ScrollView {
+                VStack {
+                    Text(record.title)
+                        .font(.title)
+                        .bold()
+                        .padding()
+                        .multilineTextAlignment(.center)
+                    
+                    RecordInfoView(dated: record.dated, period: record.period, people: record.people, width: geometry.size.width, height: geometry.size.height)
+                    
+                    ForEach(record.images ?? [], id: \.imageid) { image in
+                        VStack {
+                            ImageView(
+                                imageURL: image.baseimageurl,
+                                imageAspectRatio: CGFloat(image.width) / CGFloat(image.height)
+                            )
+                            .padding()
+                            
+                            Text("Copyright: \(image.copyright ?? "Not available")")
+                                .font(.footnote)
+                                .italic()
+                            
+                            Spacer(minLength: 50)
+                        }
+                    }
                 }
             }
         }
-        .onAppear(perform: printRecord)
-    }
-    
-    func printRecord() {
-        print(record)
     }
 }
 
