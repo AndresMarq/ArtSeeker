@@ -9,6 +9,9 @@ import Foundation
 
 struct Network {
     
+    // Saved viewed records key
+    static var recordsHistoryKey = "SavedHistory"
+    
     // MARK: -URLs
     static let harvardmuseumURL = "https://api.harvardartmuseums.org/object?"
     static var recordSizeURL = "size=15&"
