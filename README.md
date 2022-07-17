@@ -17,4 +17,4 @@ The application implements: Codable, URLSession, AsyncImage, Task, .searchable, 
 iOS 15.5+
 
 # Acknowlegments 
-Thank you to the Havard Museum for the information, their free API can be found here: https://github.com/harvardartmuseums/api-docs
+Thank you to the Havard Museum for the data, their free API can be found here: https://github.com/harvardartmuseums/api-docs
