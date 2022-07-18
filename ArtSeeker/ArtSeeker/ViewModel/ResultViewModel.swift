@@ -47,11 +47,9 @@ class ResultViewModel: ObservableObject {
             service.filterByKeyword(keyword: filterKeyword)
             
             let results = try await service.fetchResults()
-            // Discard records without Images if there are still any (Also checked in Network -> URL)
-            let recordsWithImage = results.records.filter { $0.imagecount > 0 }
-            // Further filters required as the API sometimes shows records with empty or nil image arrays as having images
-            let recordsWithValidImage = recordsWithImage.filter { $0.images != nil}
-            let records = recordsWithValidImage.filter { $0.images?.isEmpty == false }
+            
+            let records = imageChecker(result: results)
+            
             // Pass filtered data to View
             self.state = .success(data: records)
             // Update total number of pages in result
@@ -82,8 +80,22 @@ class ResultViewModel: ObservableObject {
     
     // Implement keyword search in Model
     func applySearchFilter(keyword: String) async {
+        
         // Ensure keyword is single word, if not discard all other ones
         filterKeyword = keyword.components(separatedBy: " ").first ?? ""
         await getResult()
+    }
+    
+    // Ensure records shown in UI have images
+    func imageChecker(result: Result) -> [Result.Record] {
+        
+        // Discard records without Images if there are still any (Also checked in Network -> URL)
+        let firstFilter = result.records.filter { $0.imagecount > 0 }
+        
+        // Further filters required as the API sometimes shows records with empty or nil image arrays as having images
+        let secondFilter = firstFilter.filter { $0.images != nil}
+        let thirdFilter = secondFilter.filter { $0.images?.isEmpty == false }
+        
+        return thirdFilter
     }
 }

@@ -32,6 +32,7 @@ struct RecordInfoView: View {
                         .italic()
                 }
             }
+            .padding()
             .font(.caption)
             .frame(width: width * 0.4, height: height * 0.15, alignment: .center)
             .overlay(
@@ -41,12 +42,14 @@ struct RecordInfoView: View {
             .padding()
                 
             VStack {
-                Text("Artist(s)")
+                Text("People Involved")
                     .bold()
-                ForEach(people ?? [Result.Record.Person(birthplace: nil, name: "Unknown", personid: 0, role: nil, displayorder: nil, culture: nil, displayname: nil)], id: \.personid) { person in
+                    .multilineTextAlignment(.center)
+                ForEach(people ?? [Result.Record.Person(birthplace: nil, name: "Unknown", personid: 0)], id: \.personid) { person in
                     Text(person.name)
                 }
             }
+            .padding()
             .font(.caption)
             .frame(width: width * 0.4, height: height * 0.15, alignment: .center)
             .overlay(

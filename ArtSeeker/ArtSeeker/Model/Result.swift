@@ -16,8 +16,6 @@ struct Result: Codable {
         let totalrecords: Int
         let pages: Int
         let page: Int
-        let next: String?
-        let prev: String?
     }
     
     struct Record: Codable {
@@ -44,10 +42,6 @@ struct Result: Codable {
             let birthplace: String?
             let name: String
             let personid: Int
-            let role: String?
-            let displayorder: Int?
-            let culture: String?
-            let displayname: String?
         }
     }
 }

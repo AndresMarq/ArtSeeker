@@ -13,9 +13,7 @@ let ResultExample = Result(
             totalrecordsperquery: 2,
             totalrecords: 240079,
             pages: 120039,
-            page: 1,
-            next: "https://api.harvardartmuseums.org/object?size=15&apikey=6def9cd9-a933-458d-b7d0-f29c0e60a0d1&page=2",
-            prev: nil
+            page: 1
         ),
     records: [
         Result.Record(
@@ -48,11 +46,7 @@ let ResultExample = Result(
                 Result.Record.Person(
                     birthplace: "Maracaibo",
                     name: "Raphael",
-                    personid: 10,
-                    role: "Painter",
-                    displayorder: 1,
-                    culture: "Italian",
-                    displayname: nil
+                    personid: 10
                 )
             ]
         ),
