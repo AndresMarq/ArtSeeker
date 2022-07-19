@@ -48,7 +48,9 @@ class ResultViewModel: ObservableObject {
             
             let results = try await service.fetchResults()
             
-            let records = imageChecker(result: results)
+            // Discard records without Images if there are still any (Also checked in Network -> URL)
+            // Further filters required as the API sometimes shows records with empty or nil image arrays as having images
+            let records = results.records.filter { $0.imagecount > 0 && $0.images != nil && $0.images?.isEmpty == false}
             
             // Pass filtered data to View
             self.state = .success(data: records)
@@ -65,16 +67,11 @@ class ResultViewModel: ObservableObject {
     // Page number change to next "+1" or prev "-1"
     func getPageNumber(pageNumberChange: Int) async {
         // Change page number if available
-        if pageNumberChange == +1 {
-            if resultPageNumber + 1 <= resultTotalNumberOfPages {
-                resultPageNumber += 1
-                await getResult()
-            }
-        } else if pageNumberChange == -1 {
-            if resultPageNumber > 1 {
-                resultPageNumber -= 1
-                await getResult()
-            }
+        let newIndex = resultPageNumber + pageNumberChange
+        
+        if newIndex <= resultTotalNumberOfPages {
+            resultPageNumber = newIndex
+            await getResult()
         }
     }
     
@@ -84,18 +81,5 @@ class ResultViewModel: ObservableObject {
         // Ensure keyword is single word, if not discard all other ones
         filterKeyword = keyword.components(separatedBy: " ").first ?? ""
         await getResult()
-    }
-    
-    // Ensure records shown in UI have images
-    func imageChecker(result: Result) -> [Result.Record] {
-        
-        // Discard records without Images if there are still any (Also checked in Network -> URL)
-        let firstFilter = result.records.filter { $0.imagecount > 0 }
-        
-        // Further filters required as the API sometimes shows records with empty or nil image arrays as having images
-        let secondFilter = firstFilter.filter { $0.images != nil}
-        let thirdFilter = secondFilter.filter { $0.images?.isEmpty == false }
-        
-        return thirdFilter
     }
 }
