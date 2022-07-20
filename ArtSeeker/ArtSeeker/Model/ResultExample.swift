@@ -10,32 +10,32 @@ import Foundation
 let ResultExample = Result(
     info:
         Result.Info(
-            totalrecordsperquery: 2,
-            totalrecords: 240079,
+            totalRecordsPerQuery: 2,
+            totalRecords: 240079,
             pages: 120039,
             page: 1
         ),
     records: [
         Result.Record(
             id: 74101,
-            primaryimageurl: URL(string: "https://nrs.harvard.edu/urn-3:HUAM:LEG256541"),
+            primaryImageUrl: URL(string: "https://nrs.harvard.edu/urn-3:HUAM:LEG256541"),
             title: "Seal of Philommates patrikios, imperial protospatharios and strategos of the Armeniakoi (IX/X c.)",
-            imagecount: 2,
+            imageCount: 2,
             period: "Byzantine period",
             dated: "IX/X c.",
             images: [Result.Record.Image(
-                imageid: 459499,
+                imageId: 459499,
                 description: nil,
-                baseimageurl: URL(string: "https://nrs.harvard.edu/urn-3:HUAM:LEG256541"),
+                baseImageUrl: URL(string: "https://nrs.harvard.edu/urn-3:HUAM:LEG256541"),
                 width: 2550,
                 height: 897,
                 copyright: Optional("President and Fellows of Harvard College"),
                 date: Optional("2016-01-15")
                      ),
                      Result.Record.Image(
-                        imageid: 47424,
+                        imageId: 47424,
                         description: nil,
-                        baseimageurl: URL(string: "https://nrs.harvard.edu/urn-3:HUAM:COIN20379_dlvr"),
+                        baseImageUrl: URL(string: "https://nrs.harvard.edu/urn-3:HUAM:COIN20379_dlvr"),
                         width: 1024,
                         height: 478,
                         copyright: "President and Fellows of Harvard College",
@@ -46,32 +46,32 @@ let ResultExample = Result(
                 Result.Record.Person(
                     birthplace: "Maracaibo",
                     name: "Raphael",
-                    personid: 10
+                    personId: 10
                 )
             ]
         ),
         
         Result.Record(
             id: 74114,
-            primaryimageurl: URL(string: "https://nrs.harvard.edu/urn-3:HUAM:LEG256562"),
+            primaryImageUrl: URL(string: "https://nrs.harvard.edu/urn-3:HUAM:LEG256562"),
             title: "Seal of N., protospatharios, thesmophylax, and judge of the Thrakesioi (X/XI c.)",
-            imagecount: 2,
+            imageCount: 2,
             period: nil,
             dated: "X/XI c.",
             images: [
                 Result.Record.Image(
-                    imageid: 459520,
+                    imageId: 459520,
                     description: nil,
-                    baseimageurl: URL(string: "https://nrs.harvard.edu/urn-3:HUAM:LEG256562"),
+                    baseImageUrl: URL(string: "https://nrs.harvard.edu/urn-3:HUAM:LEG256562"),
                     width: 2550,
                     height: 899,
                     copyright: "President and Fellows of Harvard College",
                     date: "2016-01-15"
                 ),
                 Result.Record.Image(
-                    imageid: 146156,
+                    imageId: 146156,
                     description: nil,
-                    baseimageurl: URL(string: "https://nrs.harvard.edu/urn-3:HUAM:COIN20397_dlvr"),
+                    baseImageUrl: URL(string: "https://nrs.harvard.edu/urn-3:HUAM:COIN20397_dlvr"),
                     width: 1024,
                     height: 478,
                     copyright: "President and Fellows of Harvard College",

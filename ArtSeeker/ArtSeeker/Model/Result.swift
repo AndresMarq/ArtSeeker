@@ -12,36 +12,70 @@ struct Result: Codable {
     let records: [Record]
     
     struct Info: Codable {
-        let totalrecordsperquery: Int
-        let totalrecords: Int
+        let totalRecordsPerQuery: Int
+        let totalRecords: Int
         let pages: Int
         let page: Int
+        
+        enum CodingKeys: String, CodingKey {
+            case totalRecordsPerQuery = "totalrecordsperquery"
+            case totalRecords = "totalrecords"
+            case pages
+            case page
+        }
     }
     
     struct Record: Codable {
         let id: Int
-        let primaryimageurl: URL?
+        let primaryImageUrl: URL?
         let title: String
-        let imagecount: Int
+        let imageCount: Int
         let period: String?
         let dated: String?
         let images: [Image]?
         let people: [Person]?
         
+        enum CodingKeys: String, CodingKey {
+            case id
+            case primaryImageUrl = "primaryimageurl"
+            case title
+            case imageCount = "imagecount"
+            case period
+            case dated
+            case images
+            case people
+        }
+        
         struct Image: Codable {
-            let imageid: Int
+            let imageId: Int
             let description: String?
-            let baseimageurl: URL?
+            let baseImageUrl: URL?
             let width: Int
             let height: Int
             let copyright: String?
             let date: String?
+            
+            enum CodingKeys: String, CodingKey {
+                case imageId = "imageid"
+                case description
+                case baseImageUrl = "baseimageurl"
+                case width
+                case height
+                case copyright
+                case date
+            }
         }
         
         struct Person: Codable {
             let birthplace: String?
             let name: String
-            let personid: Int
+            let personId: Int
+            
+            enum CodingKeys: String, CodingKey {
+                case birthplace
+                case name
+                case personId = "personid"
+            }
         }
     }
 }

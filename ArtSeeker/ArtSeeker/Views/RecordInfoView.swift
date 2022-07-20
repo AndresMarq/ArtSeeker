@@ -45,7 +45,7 @@ struct RecordInfoView: View {
                 Text("People Involved")
                     .bold()
                     .multilineTextAlignment(.center)
-                ForEach(people ?? [Result.Record.Person(birthplace: nil, name: "Unknown", personid: 0)], id: \.personid) { person in
+                ForEach(people ?? [Result.Record.Person(birthplace: nil, name: "Unknown", personId: 0)], id: \.personId) { person in
                     Text(person.name)
                 }
             }

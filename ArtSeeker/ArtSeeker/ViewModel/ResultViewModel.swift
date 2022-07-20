@@ -27,6 +27,8 @@ class ResultViewModel: ObservableObject {
     // The number 10 below is just a placeholder
     private var resultTotalNumberOfPages = 10
     private var filterKeyword = ""
+    // Stores whether last action was to move to the next page (1) or to the previous one (-1)
+    private var pageNumberChanged = 1
     
     init(service: Network) {
         self.service = service
@@ -46,16 +48,39 @@ class ResultViewModel: ObservableObject {
             // Filter by keyword
             service.filterByKeyword(keyword: filterKeyword)
             
-            let results = try await service.fetchResults()
+            // Define empty array to store the records fetched
+            var records = [Result.Record]()
             
-            // Discard records without Images if there are still any (Also checked in Network -> URL)
-            // Further filters required as the API sometimes shows records with empty or nil image arrays as having images
-            let records = results.records.filter { $0.imagecount > 0 && $0.images != nil && $0.images?.isEmpty == false}
+            // Ensures that results after filtering return at least four records
+            while records.count < 4 {
+                let results = try await service.fetchResults()
+                
+                // Discard records without Images if there are still any (Also checked in Network -> URL)
+                // Further filters required as the API sometimes shows records with empty or nil image arrays as having images
+                records = results.records.filter { $0.imageCount > 0 && $0.images != nil && $0.images?.isEmpty == false}
+                
+                // Update total number of pages in result
+                resultTotalNumberOfPages = results.info.pages
+                
+                // If filtering by keyword in UI, we must break from the while loop
+                if !filterKeyword.isEmpty {
+                    break
+                }
+                
+                // If we still don't have enough records change page prior to next iteration
+                if records.count < 4 {
+                    let newPage = resultPageNumber + pageNumberChanged
+                    
+                    // Verify new page is still within range
+                    if newPage >= 1 && newPage <= resultTotalNumberOfPages {
+                        resultPageNumber = newPage
+                    }
+                }
+            }
             
             // Pass filtered data to View
             self.state = .success(data: records)
-            // Update total number of pages in result
-            resultTotalNumberOfPages = results.info.pages
+            
         } catch {
             self.state = .failed(error: error)
             self.hasError = true
@@ -66,10 +91,13 @@ class ResultViewModel: ObservableObject {
     
     // Page number change to next "+1" or prev "-1"
     func getPageNumber(pageNumberChange: Int) async {
+        // Update last pageNumberChanged value in ViewModel
+        pageNumberChanged = pageNumberChange
+        
         // Change page number if available
         let newIndex = resultPageNumber + pageNumberChange
         
-        if newIndex <= resultTotalNumberOfPages {
+        if newIndex >= 1 && newIndex <= resultTotalNumberOfPages {
             resultPageNumber = newIndex
             await getResult()
         }
@@ -80,6 +108,10 @@ class ResultViewModel: ObservableObject {
         
         // Ensure keyword is single word, if not discard all other ones
         filterKeyword = keyword.components(separatedBy: " ").first ?? ""
+        
+        // Reset page number
+        resultPageNumber = 1
+        
         await getResult()
     }
 }

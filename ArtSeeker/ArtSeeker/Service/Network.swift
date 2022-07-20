@@ -14,7 +14,7 @@ struct Network {
     
     // MARK: -URLs
     static let harvardmuseumURL = "https://api.harvardartmuseums.org/object?"
-    static var recordSizeURL = "size=15&"
+    static var recordSizeURL = "size=12&"
     static let apiKey = "&apikey=6def9cd9-a933-458d-b7d0-f29c0e60a0d1"
     
     // Filter

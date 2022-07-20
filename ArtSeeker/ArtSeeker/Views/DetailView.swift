@@ -22,10 +22,10 @@ struct DetailView: View {
                     
                     RecordInfoView(dated: record.dated, period: record.period, people: record.people, width: geometry.size.width, height: geometry.size.height)
                     
-                    ForEach(record.images ?? [], id: \.imageid) { image in
+                    ForEach(record.images ?? [], id: \.imageId) { image in
                         VStack {
                             ImageView(
-                                imageURL: image.baseimageurl,
+                                imageURL: image.baseImageUrl,
                                 imageAspectRatio: CGFloat(image.width) / CGFloat(image.height)
                             )
                             .padding()

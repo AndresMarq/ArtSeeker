@@ -62,7 +62,9 @@ struct HomeView: View {
                         
                         Spacer()
                     
-                        Button("Clear Filter") {
+                        Button("Reset") {
+                            searchText = ""
+                            
                             Task {
                                 await viewModel.applySearchFilter(keyword: "")
                             }

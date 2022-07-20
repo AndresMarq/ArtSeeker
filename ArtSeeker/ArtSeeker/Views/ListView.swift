@@ -16,7 +16,7 @@ struct ListView: View {
                 NavigationLink(destination: DetailView(record: record)) {
                     HStack {
                         ImageView(
-                            imageURL: record.images?.first?.baseimageurl,
+                            imageURL: record.images?.first?.baseImageUrl,
                             imageAspectRatio: CGFloat(record.images?.first?.width ?? 1) / CGFloat(record.images?.first?.height ?? 1)
                         )
                             .frame(width: geometry.size.width * 0.45, height: geometry.size.height * 0.3)
