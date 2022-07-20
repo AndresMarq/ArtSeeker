@@ -9,7 +9,9 @@ The app was built using SwiftUI and MVVM architecture. This application allows u
 
 The application implements: Codable, URLSession, AsyncImage, Task, .searchable, Error handling and GeometryView.
 
-![](ArtSeeker.mov)
+
+https://user-images.githubusercontent.com/70426525/179892990-11da34df-2329-4d4c-9cc8-671427d8e0c9.mov
+
 
 # Requirements
 iOS 15.5+
